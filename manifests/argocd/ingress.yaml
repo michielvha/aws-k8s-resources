@@ -9,7 +9,7 @@ metadata:
 spec:
  ingressClassName: internal-alb
  rules:
- - host: "*."
+ - host: "*.eu-west-1.elb.amazonaws.com"
    http:
      paths:
      - path: /
