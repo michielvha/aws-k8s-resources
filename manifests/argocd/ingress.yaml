@@ -18,7 +18,7 @@ spec:
          service:
            name: argocd-server
            port:
-             name: https
+             name: http
 #  tls:
 #  - hosts:
 #    - argocd.azure.bnl-ms.myengie.com
