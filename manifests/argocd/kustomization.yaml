@@ -8,6 +8,7 @@ resources:
   - rbac.yaml
   - app.yaml
   - namespace.yaml
+  - ingress.yaml
 
 images:
   - name: quay.io/argoproj/argocd
