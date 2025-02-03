@@ -11,7 +11,7 @@ spec:
     name: in-cluster
   project: default
   source:
-    path: app.yaml
+    path: manifests/argocd
     repoURL: https://github.com/michielvha/aws-argocd
     targetRevision: main
   syncPolicy:
