@@ -3,10 +3,6 @@ kind: Application
 metadata:
   name: argocd
   namespace: argocd
-  labels:
-    name: argocd
-    squad: azure-aws
-    env: hub
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
@@ -15,8 +11,8 @@ spec:
     name: in-cluster
   project: default
   source:
-    path: manifests/argocd/overlays/prd
-    repoURL: https://dev.azure.com/bnl-ms/AzureFoundation/_git/ArgoCD
+    path: app.yaml
+    repoURL: https://github.com/michielvha/aws-argocd
     targetRevision: main
   syncPolicy:
     automated:
