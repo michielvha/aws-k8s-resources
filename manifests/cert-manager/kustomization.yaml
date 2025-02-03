@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: cert-mananger
+
+resources:
+  - https://github.com/cert-manager/cert-manager/releases/download/v1.16.3/cert-manager.yaml
+  # - namespace.yaml
+
+images:
+  - name: quay.io/jetstack/cert-manager-controller
+    newName: 833935676990.dkr.ecr.eu-west-1.amazonaws.com/quay/jetstack/cert-manager-controller
+
+  - name: quay.io/jetstack/cert-manager-cainjector
+    newName: 833935676990.dkr.ecr.eu-west-1.amazonaws.com/quay/jetstack/cert-manager-cainjector
+
+  - name: quay.io/jetstack/cert-manager-webhook
+    newName: 833935676990.dkr.ecr.eu-west-1.amazonaws.com/quay/jetstack/cert-manager-webhook
+
+
