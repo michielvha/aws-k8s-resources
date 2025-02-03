@@ -9,18 +9,9 @@ resources:
   # - app.yaml
   - namespace.yaml
 
-# images:
-#   - name: quay.io/argoproj/argocd
-#     newName: 833935676990.dkr.ecr.eu-west-1.amazonaws.com/quay/argoproj/argocd
-
-#   - name: public.ecr.aws/docker/library/redis
-#     newName: 833935676990.dkr.ecr.eu-west-1.amazonaws.com/docker/library/redis
-
-#   - name: public.ecr.aws/docker/library/haproxy
-#     newName: 833935676990.dkr.ecr.eu-west-1.amazonaws.com/docker/library/haproxy
-
-#   - name: ghcr.io/dexidp/dex
-#     newName: 833935676990.dkr.ecr.eu-west-1.amazonaws.com/github/dexidp/dex
+images:
+  - name: ghcr.io/akuity/kargo
+    newName: 833935676990.dkr.ecr.eu-west-1.amazonaws.com/github/akuity/kargo
 
 helmCharts:
 - name: kargo
