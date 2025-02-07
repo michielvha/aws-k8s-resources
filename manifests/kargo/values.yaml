@@ -147,9 +147,9 @@ api:
 
   tls:
     ## @param api.tls.enabled Whether to enable TLS directly on the API server. This is helpful if you do not intend to use an ingress controller or if you require TLS end-to-end. All other settings in this section EXCEPT `terminatedUpstream` will be ignored when this is set to `false`.
-    enabled: false
+    enabled: true
     ## @param api.tls.selfSignedCert Whether to generate a self-signed certificate for use by the API server. If `true`, `cert-manager` CRDs **must** be present in the cluster. Kargo will create and use its own namespaced issuer. If `false`, a cert secret named `kargo-api-cert` **must** be provided in the same namespace as Kargo.
-    selfSignedCert: false
+    selfSignedCert: true
     ## @param api.tls.terminatedUpstream Whether TLS is terminated upstream, i.e. a load balancer, reverse-proxy, or an Ingress controller using a single wildcard cert is terminating it. Setting this to `true` forces all API server URLs to use HTTPS even if the Ingress (if applicable) or API server itself are listening for plain HTTP requests.
     terminatedUpstream: false
 
@@ -166,9 +166,9 @@ api:
     ingressClassName:
     tls:
       ## @param api.ingress.tls.enabled Whether to associate a certificate with the Ingress resource.
-      enabled: false
+      enabled: true
       ## @param api.ingress.tls.selfSignedCert Whether to generate a self-signed certificate for use with the API server's Ingress resource. If `true`, `cert-manager` CRDs **must** be present in the cluster. Kargo will create and use its own namespaced issuer. If `false`, a cert secret named `kargo-api-ingress-cert` **must** be provided in the same namespace as Kargo. The value in this field has no effect if `api.ingress.tls.enabled` is `false`.
-      selfSignedCert: false
+      selfSignedCert: true
     ## @param api.ingress.pathType You may want to use `Prefix` for some controllers (like AWS LoadBalancer Ingress controller), which don't support `/` as wildcard path when pathType is set to `ImplementationSpecific`
     pathType: ImplementationSpecific
 
@@ -288,7 +288,7 @@ api:
 
       tls:
         ## @param api.oidc.dex.tls.selfSignedCert Whether to generate a self-signed certificate for use with Dex. If `true`, `cert-manager` CRDs **must** be present in the cluster. Kargo will create and use its own namespaced issuer. If `false`, a cert secret named `kargo-dex-server-cert` **must** be provided in the same namespace as Kargo. There is no provision for running Dex without TLS.
-        selfSignedCert: false
+        selfSignedCert: true
       ## @param api.oidc.dex.skipApprovalScreen Whether to skip Dex's own approval screen. Since upstream identity providers will already request user consent, this second approval screen from Dex can be both superfluous and confusing.
       skipApprovalScreen: true
       ## @param api.oidc.dex.connectors Configure [Dex connectors](https://dexidp.io/docs/connectors/) to one or more upstream identity providers.
@@ -553,7 +553,7 @@ webhooksServer:
 
   tls:
     ## @param webhooksServer.tls.selfSignedCert  Whether to generate a self-signed certificate for the controller's built-in webhook server. If `true`, `cert-manager` CRDs **must** be present in the cluster. Kargo will create and use its own namespaced issuer. If `false`, a cert secret named `kargo-webhooks-server-cert` **must** be provided in the same namespace as Kargo. There is no provision for webhooks without TLS.
-    selfSignedCert: false
+    selfSignedCert: true
   ## @param webhooksServer.resources Resources limits and requests for the webhooks server containers.
   resources: {}
     # limits:
