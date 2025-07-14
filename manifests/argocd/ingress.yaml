@@ -1,3 +1,28 @@
+apiVersion: eks.amazonaws.com/v1
+kind: IngressClassParams
+metadata:
+  name: internal-class
+spec:
+  scheme: internal
+  subnets:
+    ids:
+    - subnet-03cca5bfbe0945398
+    - subnet-0e85b0947305743fa
+---
+apiVersion: networking.k8s.io/v1
+kind: IngressClass
+metadata:
+  name: internal-alb
+  annotations:
+    ingressclass.kubernetes.io/is-default-class: "true"
+spec:
+  # Configures the IngressClass to use EKS Auto Mode
+  controller: eks.amazonaws.com/alb
+  parameters:
+    apiGroup: eks.amazonaws.com
+    kind: IngressClassParams
+    name: internal-class
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
