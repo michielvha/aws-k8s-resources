@@ -23,10 +23,10 @@ metadata:
   namespace: kargo-demo
 spec:
   subscriptions:
-  - image:
-      repoURL: ghcr.io/kroonprins/nginx
-      semverConstraint: ^1.26.0
-      discoveryLimit: 5
+  # - image:
+  #     repoURL: ghcr.io/kroonprins/nginx
+  #     semverConstraint: ^1.26.0
+  #     discoveryLimit: 5
   - git:
       repoURL: https://github.com/kratarget/octopus_oneretail_deploy
       branch: main
@@ -48,7 +48,7 @@ spec:
     spec:
       vars:
       - name: gitopsRepo
-        value: ${GITOPS_REPO_URL}
+        value: https://github.com/kratarget/octopus_oneretail_deploy
       - name: imageRepo
         value: ghcr.io/kroonprins/nginx
       - name: srcPath
@@ -113,7 +113,7 @@ spec:
     spec:
       vars:
       - name: gitopsRepo
-        value: ${GITOPS_REPO_URL}
+        value: https://github.com/kratarget/octopus_oneretail_deploy
       - name: imageRepo
         value: ghcr.io/kroonprins/nginx
       - name: srcPath
@@ -178,7 +178,7 @@ spec:
     spec:
       vars:
       - name: gitopsRepo
-        value: ${GITOPS_REPO_URL}
+        value: https://github.com/kratarget/octopus_oneretail_deploy
       - name: imageRepo
         value: ghcr.io/kroonprins/nginx
       - name: srcPath
