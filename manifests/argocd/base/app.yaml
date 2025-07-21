@@ -32,7 +32,7 @@ metadata:
   - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: argocd
+    namespace: kyverno-system
     name: in-cluster
   project: default
   source:
