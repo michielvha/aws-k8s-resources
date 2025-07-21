@@ -1,3 +1,9 @@
+grafana:
+  enabled: false
+
+# Also disable any monitoring components if not needed
+#monitoring:
+#  enabled: false
 reportsController:
   serviceAccount:
     # The name of the service account is constructed from the release name.
