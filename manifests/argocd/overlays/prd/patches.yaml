@@ -17,3 +17,32 @@ metadata:
     app.kubernetes.io/part-of: argocd
 data:
   kustomize.buildOptions: --enable-helm
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argocd-server
+spec:
+  template:
+    metadata:
+      annotations:
+        reloader.stakater.com/auto: "true"
+        # configmap.reloader.stakater.com/reload: "argocd-rbac-cm,argocd-cm,argocd-cmd-params-cm"
+---
+
+# modify application-controller statefulset to use workload identity, required for auto join of clusters via secret
+apiVersion:  apps/v1
+kind: StatefulSet
+metadata:
+  namespace: argocd
+  name: argocd-application-controller
+spec:
+  template:
+    metadata:
+      annotations:
+        reloader.stakater.com/auto: "true"
+#        configmap.reloader.stakater.com/reload: "argocd-rbac-cm,argocd-cm,argocd-cmd-params-cm"
+      labels:
+        azure.workload.identity/use: "true"
+---
+
