@@ -92,3 +92,31 @@ data:
     0/O4yRLD8dR5OxEQyKFK3qk3tKqqFiygRsun9knCpTY/qsYLSEewWc7Z
     -----END CERTIFICATE-----
 ````
+
+In an **AWS Controllers for Kubernetes (ACK)`Bucket` custom resource (CR)** you populate `spec.acl` with any of the **S3 “canned” ACL strings** that Amazon S3 itself accepts.
+That list is identical to the one in the S3 API and SDK docs:
+
+| ACL value                   | Typical use‑case (very short)                                                                      |
+| --------------------------- | -------------------------------------------------------------------------------------------------- |
+| `private`                   | Bucket/object owner only (default)                                                                 |
+| `public-read`               | Anyone can **GET** objects (website/static assets)                                                 |
+| `public-read-write`         | Anyone can **GET/PUT/DELETE** objects (rarely recommended)                                         |
+| `authenticated-read`        | Any AWS‑authenticated principal can read                                                           |
+| `log-delivery-write`        | Lets the *LogDelivery* service principal write server‑access logs to the bucket                    |
+| `bucket-owner-read`         | Gives the bucket owner **READ** access to an object that another account uploads                   |
+| `bucket-owner-full-control` | Gives the bucket owner **FULL\_CONTROL** over an uploaded object (common for cross‑account uploads) |
+| `aws-exec-read`             | Grants AmazonEC2 permission to read an AMI manifest/object                                         |
+
+Sources
+• Field description for `spec.acl` in the ACK S3 Bucket CRD([GitHub][1])
+• Complete canned ACL value list in the S3 API (`CannedAccessControlList`)([AWS Documentation][2])
+• `log‑delivery‑write` and other bucket‑level details in the ACL overview([AWS Documentation][3])
+• Core four values shown in the `PutBucketAcl` API reference([AWS Documentation][4])
+
+> **Heads‑up (2025‑07‑21):**
+> If your bucket has **Object Ownership set to *Bucket owner enforced***, ACLs are disabled and S3 will reject any `acl` setting (except `bucket-owner-full-control` on object puts). In that case, manage access with bucket policies instead of ACK `spec.acl`.
+
+[1]: https://raw.githubusercontent.com/aws-controllers-k8s/s3-controller/main/config/crd/bases/s3.services.k8s.aws_buckets.yaml "raw.githubusercontent.com"
+[2]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_control_S3AccessControlPolicy.html "S3AccessControlPolicy - Amazon Simple Storage Service"
+[3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html?utm_source=chatgpt.com "Access control list (ACL) overview - Amazon Simple Storage Service"
+[4]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketAcl.html "PutBucketAcl - Amazon Simple Storage Service"
