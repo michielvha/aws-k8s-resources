@@ -5,6 +5,7 @@ namespace: argocd
 
 resources:
   - ../../base
+  - ../../../reloader
 
 patches:
  - path: patches.yaml

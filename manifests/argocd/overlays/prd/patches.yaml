@@ -29,8 +29,6 @@ spec:
         reloader.stakater.com/auto: "true"
         # configmap.reloader.stakater.com/reload: "argocd-rbac-cm,argocd-cm,argocd-cmd-params-cm"
 ---
-
-# modify application-controller statefulset to use workload identity, required for auto join of clusters via secret
 apiVersion:  apps/v1
 kind: StatefulSet
 metadata:
@@ -42,7 +40,5 @@ spec:
       annotations:
         reloader.stakater.com/auto: "true"
 #        configmap.reloader.stakater.com/reload: "argocd-rbac-cm,argocd-cm,argocd-cmd-params-cm"
-      labels:
-        azure.workload.identity/use: "true"
 ---
 
