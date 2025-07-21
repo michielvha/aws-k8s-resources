@@ -1,6 +1,10 @@
 grafana:
   enabled: false
 
+dependencies:
+  grafana:
+    enabled: false
+
 # Also disable any monitoring components if not needed
 #monitoring:
 #  enabled: false
