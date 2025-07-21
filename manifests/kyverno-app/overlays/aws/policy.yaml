@@ -65,12 +65,12 @@ spec:
       any:
       - resources:
           kinds: ["Bucket"]
-    preconditions:
+    preconditions:  # validation only happens when acl key is set, otherwise it is not checked
       all:
       - key: "{{request.object.spec.acl || 'not-set'}}"
         operator: NotEquals
         value: ""
-    validate:
+    validate:   # fail if public-read ACL is set
       message: "ACL 'public-read' is disallowed; use presigned URLs instead."
       pattern:
         spec:
