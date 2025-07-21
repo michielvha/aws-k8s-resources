@@ -24,10 +24,8 @@ metadata:
   name: argocd-tls-certs-cm
   namespace: argocd
   labels:
-    app.kubernetes.io/component: server
     app.kubernetes.io/name: argocd-tls-certs-cm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/instance: argocd
 data:
   kyverno.github.io: |
     -----BEGIN CERTIFICATE-----
