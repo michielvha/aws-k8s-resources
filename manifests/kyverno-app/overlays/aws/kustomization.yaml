@@ -8,24 +8,30 @@ resources:
   - policy.yaml
   - namespace.yaml
 
+helmGlobals:
+  chartHome: helm
+
 helmCharts:
 - name: kyverno
-  repo: https://kyverno.github.io/kyverno/
-  version: 3.3.1
-  releaseName: kyverno
-  valuesFile: values.yaml
   namespace: kyverno-system
-  includeCRDs: true
+  valuesFile: values.yaml
+#  releaseName: kyverno
+#  includeCRDs: true
+#  version: 3.4.4
+
+#  repo: https://kyverno.github.io/kyverno/
+#  version: 3.3.1
 
 
-images:
-  - name: ghcr.io/kyverno/kyvernopre
-    newName: 833935676990.dkr.ecr.eu-west-1.amazonaws.com/ghcr.io/kyverno/kyvernopre
-  - name: ghcr.io/kyverno/kyverno
-    newName: 833935676990.dkr.ecr.eu-west-1.amazonaws.com/ghcr.io/kyverno/kyverno
-  - name: ghcr.io/kyverno/background-controller
-    newName: 833935676990.dkr.ecr.eu-west-1.amazonaws.com/ghcr.io/kyverno/background-controller
-  - name: ghcr.io/kyverno/cleanup-controller
-    newName: 833935676990.dkr.ecr.eu-west-1.amazonaws.com/ghcr.io/kyverno/cleanup-controller
-  - name: ghcr.io/kyverno/reports-controller
-    newName: 833935676990.dkr.ecr.eu-west-1.amazonaws.com/ghcr.io/kyverno/reports-controller
+
+#images:
+#  - name: ghcr.io/kyverno/kyvernopre
+#    newName: 833935676990.dkr.ecr.eu-west-1.amazonaws.com/ghcr.io/kyverno/kyvernopre
+#  - name: ghcr.io/kyverno/kyverno
+#    newName: 833935676990.dkr.ecr.eu-west-1.amazonaws.com/ghcr.io/kyverno/kyverno
+#  - name: ghcr.io/kyverno/background-controller
+#    newName: 833935676990.dkr.ecr.eu-west-1.amazonaws.com/ghcr.io/kyverno/background-controller
+#  - name: ghcr.io/kyverno/cleanup-controller
+#    newName: 833935676990.dkr.ecr.eu-west-1.amazonaws.com/ghcr.io/kyverno/cleanup-controller
+#  - name: ghcr.io/kyverno/reports-controller
+#    newName: 833935676990.dkr.ecr.eu-west-1.amazonaws.com/ghcr.io/kyverno/reports-controller
