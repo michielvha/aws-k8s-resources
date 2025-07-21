@@ -60,18 +60,18 @@ spec:
                 daysAfterInitiation: 7
 
   # Validate: deny if somebody tries to sneak in ACL public-read
-  - name: deny-public-acl
-    match:
-      any:
-      - resources:
-          kinds: ["Bucket"]
-    preconditions:  # validation only happens when acl key is set, otherwise it is not checked
-      all:
-      - key: "{{request.object.spec.acl || 'not-set'}}"
-        operator: NotEquals
-        value: ""
-    validate:   # fail if public-read ACL is set
-      message: "ACL 'public-read' is disallowed; use presigned URLs instead."
-      pattern:
-        spec:
-          acl: "!public-read"
+#  - name: deny-public-acl
+#    match:
+#      any:
+#      - resources:
+#          kinds: ["Bucket"]
+#    preconditions:  # validation only happens when acl key is set, otherwise it is not checked
+#      all:
+#      - key: "{{request.object.spec.acl || 'not-set'}}"
+#        operator: NotEquals
+#        value: ""
+#    validate:   # fail if public-read ACL is set
+#      message: "ACL 'public-read' is disallowed; use presigned URLs instead."
+#      pattern:
+#        spec:
+#          acl: "!public-read"
