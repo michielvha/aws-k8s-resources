@@ -24,7 +24,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: devteam-infra
+  name: kyverno
   namespace: infra
   annotations:
     argocd.argoproj.io/compare-options: ServerSideDiff=true,IncludeMutationWebhook=true
@@ -34,7 +34,7 @@ spec:
   destination:
     namespace: infra
     name: in-cluster
-  project: devteam-infra
+  project: default
   source:
     path: manifests/kyverno-app/overlays/aws
     repoURL: https://github.com/michielvha/aws-argocd
@@ -46,3 +46,29 @@ spec:
     syncOptions:
       - PruneLast=true
       - ServerSideApply=true
+---
+#apiVersion: argoproj.io/v1alpha1
+#kind: Application
+#metadata:
+#  name: devteam-infra
+#  namespace: infra
+#  annotations:
+#    argocd.argoproj.io/compare-options: ServerSideDiff=true,IncludeMutationWebhook=true
+#  finalizers:
+#  - resources-finalizer.argocd.argoproj.io
+#spec:
+#  destination:
+#    namespace: infra
+#    name: in-cluster
+#  project: devteam-infra
+#  source:
+#    path: manifests/infra-app/overlays/prd
+#    repoURL: https://github.com/michielvha/aws-argocd
+#    targetRevision: main
+#  syncPolicy:
+#    automated:
+#      selfHeal: true
+#      prune: true
+#    syncOptions:
+#      - PruneLast=true
+#      - ServerSideApply=true
