@@ -17,5 +17,5 @@ kind: Bucket
 metadata:
   name: b2c-37469
 spec:
-  name: b2c-37468
+  name: b2c-37469
   acl: public-read
