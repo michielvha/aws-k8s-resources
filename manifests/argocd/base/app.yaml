@@ -32,7 +32,7 @@ metadata:
   - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: infra
+    namespace: argocd
     name: in-cluster
   project: default
   source:
