@@ -46,6 +46,7 @@ spec:
     syncOptions:
       - PruneLast=true
       - ServerSideApply=true
+      - createNamespace=true
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
