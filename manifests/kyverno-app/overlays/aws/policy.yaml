@@ -1,0 +1,77 @@
+# ACK s3 bucket spec reference: https://aws-controllers-k8s.github.io/community/reference/s3/v1alpha1/bucket/#spec
+# ClusterPolicy Spec Reference: https://htmlpreview.github.io/?https://github.com/kyverno/kyverno/blob/main/docs/user/crd/index.html
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: s3-bucket-defaults
+spec:
+  validationFailureAction: Enforce    # block the request if mutate fails
+  background: true                    # Also apply configuration to existing Buckets - This is the way to go in PROD imo
+  rules:
+  #  Mutate: inject & lock the golden settings
+  - name: force-default-config
+    match:
+      any:
+      - resources:
+          kinds: ["Bucket"]
+    mutate:
+      mutateExistingOnPolicyUpdate: true  # Reapply the policy if it is updated, to existing Buckets - required for production use.
+      targets: # required to set when using `mutateExistingOnPolicyUpdate: true`
+      - apiVersion: s3.services.k8s.aws/v1alpha1
+        kind: Bucket
+      patchesJson6902: |-
+        - op: add
+          path: "/spec/acl"
+          value: "private"
+        - op: add
+          path: "/spec/publicAccessBlock"
+          value:
+            blockPublicACLs: true
+            blockPublicPolicy: true
+            ignorePublicACLs: true
+            restrictPublicBuckets: true
+        - op: add
+          path: "/spec/encryption"
+          value:
+            rules:
+            - applyServerSideEncryptionByDefault:
+                sseAlgorithm: "AES256"
+              bucketKeyEnabled: true
+        - op: add
+          path: "/spec/versioning"
+          value:
+            status: "Enabled"
+        - op: add
+          path: "/spec/tagging/tagSet"
+          value:
+            - key: "mutated-by"
+              value: "kyverno"
+            - key: "data-protection"
+              value: "versioned"
+        - op: add
+          path: "/spec/lifecycle/rules"
+          value:
+            - id: "soft-delete-protection"
+              status: "Enabled"
+              prefix: ""
+              noncurrentVersionExpiration:
+                noncurrentDays: 90
+              abortIncompleteMultipartUpload:
+                daysAfterInitiation: 7
+
+  # Validate: deny if somebody tries to sneak in ACL public-read
+  - name: deny-public-acl
+    match:
+      any:
+      - resources:
+          kinds: ["Bucket"]
+    preconditions:
+      all:
+      - key: "{{request.object.spec.acl}}"
+        operator: NotEquals
+        value: ""
+    validate:
+      message: "ACL 'public-read' is disallowed; use presigned URLs instead."
+      pattern:
+        spec:
+          acl: "!public-read"

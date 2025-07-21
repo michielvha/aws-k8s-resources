@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: devteam-infra
+  namespace: infra
+spec:
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  destinations:
+    - namespace: '*'
+      name: 'in-cluster'
+  sourceRepos:
+    - '*'
+  sourceNamespaces:
+    - 'infra'
+#  roles:
+#  - name: read-only
+#    description: Read only access
+#    policies:
+#    - p, proj:azure-tooling-hub-we:read-only, applications, get, azure-tooling-hub-we/*, allow
+#    groups:
+#    - cd1faeed-a9d9-4d7c-99c6-477bfa61d749 # ORG0031-SG-READER
+#    - 48422e3d-17d0-4791-aaf1-93afaa862db9 # ORG0031-SG-ARGOCD-AZUREAWS-READER
+#  - name: admin
+#    description: admin privileges to my-project
+#    policies:
+#    - p, proj:azure-tooling-hub-we:admin, applications, *, azure-tooling-hub-we/*, allow
+#    groups:
+#    - 8a4815dc-86a5-4203-8251-41fca3387826 # ORG0031-SG-ARGOCD-AZUREAWS-ADMIN

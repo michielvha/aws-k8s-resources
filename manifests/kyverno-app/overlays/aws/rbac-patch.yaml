@@ -1,0 +1,46 @@
+# Creating the extra RBAC permissions for Kyverno is handled via the helm chart.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: kyverno:s3-bucket-access
+  labels:
+    app.kubernetes.io/component: kyverno
+    app.kubernetes.io/instance: kyverno
+    app.kubernetes.io/name: kyverno
+    app.kubernetes.io/part-of: kyverno
+rules:
+- apiGroups:
+  - s3.services.k8s.aws
+  resources:
+  - buckets
+  verbs:
+  - get
+  - list
+  - watch
+  - update
+  - patch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kyverno:s3-bucket-access
+  labels:
+    app.kubernetes.io/component: kyverno
+    app.kubernetes.io/instance: kyverno
+    app.kubernetes.io/name: kyverno
+    app.kubernetes.io/part-of: kyverno
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: kyverno:s3-bucket-access
+subjects:
+- kind: ServiceAccount
+  name: kyverno-service-account
+  namespace: kyverno-system
+- kind: ServiceAccount
+  name: kyverno-background-controller
+  namespace: kyverno-system
+- kind: ServiceAccount
+  name: kyverno-cleanup-controller
+  namespace: kyverno-system
+

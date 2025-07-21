@@ -9,6 +9,7 @@ resources:
   - app.yaml
   - namespace.yaml
   - ingress.yaml
+  - project.yaml
 
 images:
   - name: quay.io/argoproj/argocd
@@ -25,6 +26,7 @@ images:
 
 
 patches:
+#  - path: patches.yaml
   - target:
       kind: ConfigMap
       name: argocd-cmd-params-cm

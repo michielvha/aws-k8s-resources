@@ -1,0 +1,19 @@
+reportsController:
+  serviceAccount:
+    # The name of the service account is constructed from the release name.
+    name: kyverno-reports-controller
+    # Explicitly set the namespace for the service account subject in the ClusterRoleBinding.
+    namespace: kyverno-system
+  rbac:
+    clusterRole:
+      extraResources:
+        - apiGroups:
+            - "s3.services.k8s.aws"
+          resources:
+            - "buckets"
+          verbs:
+            - get
+            - list
+            - watch
+            - update
+            - patch
