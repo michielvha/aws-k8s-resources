@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: ack-system
+
+resources:
+  - namespace.yaml
+  - bucket.yaml
+
+helmCharts:
+- name: s3-chart
+  repo: oci://public.ecr.aws/aws-controllers-k8s
+  version: 1.0.33
+  releaseName: ack-s3-controller
+  valuesFile: s3.yaml
+  includeCRDs: true
+
+images:
+  - name: public.ecr.aws/aws-controllers-k8s/s3-controller
+    newName: 833935676990.dkr.ecr.eu-west-1.amazonaws.com/ecr-public/aws-controllers-k8s/s3-controller

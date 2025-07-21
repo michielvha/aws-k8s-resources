@@ -1,0 +1,13 @@
+#apiVersion: s3.services.k8s.aws/v1alpha1
+#kind: Bucket
+#metadata:
+#  name: b2c-37467
+#spec:
+#  name: b2c-37467
+---
+apiVersion: s3.services.k8s.aws/v1alpha1
+kind: Bucket
+metadata:
+  name: b2c-37468
+spec:
+  name: b2c-37468
