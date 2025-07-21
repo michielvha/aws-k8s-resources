@@ -12,7 +12,7 @@ spec:
   project: default
   source:
     path: manifests/argocd/overlays/prd
-    repoURL: https://github.com/michielvha/aws-argocd
+    repoURL: https://github.com/michielvha/aws-k8s-resources
     targetRevision: main
   syncPolicy:
     automated:
@@ -37,7 +37,7 @@ spec:
   project: default
   source:
     path: manifests/kyverno-app/overlays/aws
-    repoURL: https://github.com/michielvha/aws-argocd
+    repoURL: https://github.com/michielvha/aws-k8s-resources
     targetRevision: main
   syncPolicy:
     automated:
@@ -64,7 +64,7 @@ spec:
   project: devteam-infra
   source:
     path: manifests/infra/overlays/prd
-    repoURL: https://github.com/michielvha/aws-argocd
+    repoURL: https://github.com/michielvha/aws-k8s-resources
     targetRevision: main
   syncPolicy:
     automated:
