@@ -67,7 +67,7 @@ spec:
           kinds: ["Bucket"]
     preconditions:
       all:
-      - key: "{{request.object.spec.acl || ''}}"
+      - key: "{{request.object.spec.acl || 'not-set'}}"
         operator: NotEquals
         value: ""
     validate:
