@@ -6,7 +6,7 @@ metadata:
   name: s3-bucket-defaults
 spec:
   validationFailureAction: Enforce    # block the request if mutate fails
-  background: true                    # Also apply configuration to existing Buckets - This is the way to go in PROD imo
+  background: true                    # Also apply configuration to existing Buckets - best practice for production use
   rules:
   #  Mutate: inject & lock the golden settings
   - name: force-default-config
@@ -15,7 +15,7 @@ spec:
       - resources:
           kinds: ["Bucket"]
     mutate:
-      mutateExistingOnPolicyUpdate: true  # Reapply the policy if it is updated, to existing Buckets - required for production use.
+      mutateExistingOnPolicyUpdate: true  # Reapply the policy to existing Buckets when updated - required for production use.
       targets: # required to set when using `mutateExistingOnPolicyUpdate: true`
       - apiVersion: s3.services.k8s.aws/v1alpha1
         kind: Bucket
