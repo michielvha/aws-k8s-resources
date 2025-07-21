@@ -16,7 +16,7 @@ helmCharts:
   namespace: kyverno-system
   valuesFile: values.yaml
 #  releaseName: kyverno
-#  includeCRDs: true
+  includeCRDs: true
 #  version: 3.4.4
 
 #  repo: https://kyverno.github.io/kyverno/
