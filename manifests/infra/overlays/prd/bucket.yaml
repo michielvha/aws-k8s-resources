@@ -10,10 +10,10 @@ spec:
         value: testing
 
 ---
-apiVersion: s3.services.k8s.aws/v1alpha1
-kind: Bucket
-metadata:
-  name: b2c-37469
-spec:
-  name: b2c-37469
-  acl: public-read
+#apiVersion: s3.services.k8s.aws/v1alpha1
+#kind: Bucket
+#metadata:
+#  name: b2c-37469
+#spec:
+#  name: b2c-37469
+#  acl: public-read
