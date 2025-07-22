@@ -4,6 +4,11 @@ metadata:
   name: b2c-37468
 spec:
   name: b2c-37468
+  tagging:
+    tagSet:
+      - key: initial
+        value: testing
+
 ---
 apiVersion: s3.services.k8s.aws/v1alpha1
 kind: Bucket
