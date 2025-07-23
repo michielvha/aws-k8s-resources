@@ -3,6 +3,9 @@ kind: Kustomization
 
 namespace: crossplane-system
 
+helmGlobals:
+  chartHome: helm
+
 helmCharts:
 - name: crossplane
   repo: https://charts.crossplane.io/stable
