@@ -14,5 +14,5 @@ helmCharts:
   namespace: crossplane-system
   includeCRDs: true
 
-resources:
-- providers.yaml
+#resources:
+#- providers.yaml
