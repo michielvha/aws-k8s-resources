@@ -18,13 +18,13 @@ spec:
   runtimeConfigRef:
     name: provider-aws-pod-id-drc
 ---
-#apiVersion: pkg.crossplane.io/v1
-#kind: Provider
-#metadata:
-#  name: provider-family-aws
-#  namespace: crossplane-system
-#spec:
-#  package: xpkg.upbound.io/upbound/provider-family-aws:v1
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-family-aws
+  namespace: crossplane-system
+spec:
+  package: xpkg.upbound.io/upbound/provider-family-aws:v1
 ---
 apiVersion: aws.upbound.io/v1beta1
 kind: ProviderConfig
