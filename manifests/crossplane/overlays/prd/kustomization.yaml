@@ -5,6 +5,7 @@ namespace: crossplane-system
 
 resources:
 - ../../base
+- providers.yaml
 
 helmGlobals:
   chartHome: helm
@@ -16,6 +17,3 @@ helmCharts:
   releaseName: crossplane
   namespace: crossplane-system
   includeCRDs: true
-
-#resources:
-#- providers.yaml
