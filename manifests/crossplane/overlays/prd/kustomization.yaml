@@ -3,6 +3,9 @@ kind: Kustomization
 
 namespace: crossplane-system
 
+resources:
+- ../../base
+
 helmGlobals:
   chartHome: helm
 
