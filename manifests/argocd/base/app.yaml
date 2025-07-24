@@ -80,6 +80,8 @@ kind: Application
 metadata:
   name: crossplane
   namespace: infra
+  annotations:
+     argocd.argoproj.io/sync-options: FinalizerPropagation=foreground
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
