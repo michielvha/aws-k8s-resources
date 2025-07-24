@@ -97,5 +97,5 @@ spec:
       prune: true
     syncOptions:
       - PruneLast=true
-      - ServerSideApply=true
+#      - ServerSideApply=true
       - createNamespace=true
