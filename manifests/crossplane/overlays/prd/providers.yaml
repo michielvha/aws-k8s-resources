@@ -29,10 +29,10 @@ spec:
   runtimeConfigRef:
     name: provider-aws-pod-id-drc
 ---
-apiVersion: aws.upbound.io/v1beta1
-kind: ProviderConfig
-metadata:
-    name: provider-aws-s3
-spec:
-    credentials:
-        source: PodIdentity
+#apiVersion: aws.upbound.io/v1beta1
+#kind: ProviderConfig
+#metadata:
+#    name: provider-aws-s3
+#spec:
+#    credentials:
+#        source: PodIdentity
