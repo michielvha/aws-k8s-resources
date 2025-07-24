@@ -6,6 +6,5 @@ metadata:
 spec:
   forProvider:
     locationConstraint: eu-west-1
-    acl: private
   providerConfigRef:
     name: aws-provider-s3
