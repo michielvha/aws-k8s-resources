@@ -1,0 +1,11 @@
+# https://marketplace.upbound.io/providers/upbound/provider-aws-s3/v1.23.1/resources/s3.aws.upbound.io/Bucket/v1beta2
+apiVersion: s3.aws.upbound.io/v1beta2
+kind: Bucket
+metadata:
+  name: bucket-34524356243
+spec:
+  forProvider:
+    locationConstraint: eu-west-1
+    acl: private
+  providerConfigRef:
+    name: aws-provider-s3

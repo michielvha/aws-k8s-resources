@@ -5,4 +5,5 @@ namespace: infra
 
 resources:
   - bucket.yaml
+  - bucket-upbound.yaml
 
