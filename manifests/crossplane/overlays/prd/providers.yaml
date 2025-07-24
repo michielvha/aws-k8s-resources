@@ -7,7 +7,7 @@ spec:
   serviceAccountTemplate:
     metadata:
       name: provider-aws-s3
-    deploymentTemplate: {}
+  deploymentTemplate: {}
 ---
 apiVersion: pkg.crossplane.io/v1
 kind: Provider
