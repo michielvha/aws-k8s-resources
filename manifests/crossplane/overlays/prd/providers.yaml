@@ -14,7 +14,7 @@ metadata:
   name: provider-aws-s3
   namespace: crossplane-system
 spec:
-  package: xpkg.crossplane.io/upbound/provider-aws-s3:v1
+  package: xpkg.upbound.io/upbound/provider-aws-s3:v1
   runtimeConfigRef:
     name: provider-aws-pod-id-drc
 ---
