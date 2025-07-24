@@ -53,8 +53,8 @@ kind: Application
 metadata:
   name: devteam-infra
   namespace: infra
-  annotations:
-    argocd.argoproj.io/compare-options: ServerSideDiff=true,IncludeMutationWebhook=true
+#  annotations:
+#    argocd.argoproj.io/compare-options: ServerSideDiff=true,IncludeMutationWebhook=true
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
@@ -72,7 +72,7 @@ spec:
       prune: true
     syncOptions:
       - PruneLast=true
-      - ServerSideApply=true
+#      - ServerSideApply=true
       - createNamespace=true
 ---
 apiVersion: argoproj.io/v1alpha1
