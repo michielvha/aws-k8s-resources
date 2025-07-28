@@ -54,7 +54,7 @@ spec:
               region: eu-west-1
               bucket: TO_PATCH
               versioningConfiguration:
-                status: "Enabled"
+                - status: "Enabled"
         patches:
           - type: CombineFromComposite
             combine:
