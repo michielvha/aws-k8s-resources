@@ -64,6 +64,11 @@ spec:
               string:
                 fmt: "engie-%s-versioning"
             toFieldPath: "metadata.name"
-          - type: FromCompositeFieldPath
-            fromFieldPath: "spec.bucketName"
+          - type: CombineFromComposite
+            combine:
+              variables:
+                - fromFieldPath: "spec.bucketName"
+              strategy: string
+              string:
+                fmt: "engie-%s"
             toFieldPath: "spec.forProvider.bucket"
