@@ -23,7 +23,5 @@ spec:
             properties:
               bucketName:
                 type: string
-              region:
-                type: string
             required:
             - bucketName
