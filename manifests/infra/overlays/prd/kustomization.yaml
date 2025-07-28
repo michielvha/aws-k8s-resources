@@ -6,4 +6,4 @@ namespace: infra
 resources:
   - bucket.yaml
   - bucket-upbound.yaml
-
+  - bucket-engie.yaml
