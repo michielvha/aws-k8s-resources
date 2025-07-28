@@ -6,6 +6,8 @@ namespace: crossplane-system
 resources:
 - ../../base
 - providers.yaml
+- s3-bucket-xrd.yaml
+- s3-bucket-composition.yaml
 
 helmGlobals:
   chartHome: helm

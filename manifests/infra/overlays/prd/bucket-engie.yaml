@@ -1,0 +1,7 @@
+apiVersion: storage.bnl-ms.myengie.com/v1alpha1
+kind: EngieBucket
+metadata:
+  name: alpha-engie-bucket
+  namespace: crossplane-system
+spec:
+  bucketName: "bucket-25545623156"
