@@ -1,0 +1,41 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: xbucket-lock-disabled
+spec:
+  compositeTypeRef:
+    apiVersion: storage.bnl-ms.myengie.com/v1alpha1
+    kind: XEngieBucket
+  mode: Pipeline
+  pipeline:
+  - step: patch-and-transform
+    functionRef:
+      name: function-patch-and-transform
+    input:
+      apiVersion: pt.fn.crossplane.io/v1beta1
+      kind: Resources
+      resources:
+      - name: s3-bucket-lock-disabled
+        base:
+          apiVersion: s3.aws.upbound.io/v1beta2
+          kind: Bucket
+          metadata:
+            name: TO_PATCH # will be overwritten via patch
+          spec:
+            deletionPolicy: Orphan # cloud resource will never be deleted (default = Delete)
+            providerConfigRef:
+              name: default-azure-provider
+            forProvider:
+              region: eu-west-1
+              tags:
+                environment: sandbox
+                managed-by: crossplane
+        patches:
+        - type: CombineFromComposite
+          combine:
+            variables:
+            - fromFieldPath: "spec.bucketName"
+            strategy: string
+            string:
+              fmt: "engie-%s"
+          toFieldPath: "metadata.name"
