@@ -3,3 +3,4 @@ kind: Kustomization
 
 resources:
 - s3-bucket-xrd.yaml
+- s3-bucket-composition.yaml
