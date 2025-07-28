@@ -1,7 +1,7 @@
 apiVersion: apiextensions.crossplane.io/v1
 kind: Composition
 metadata:
-  name: xbucket-lock-disabled
+  name: xbucket-engie
 spec:
   compositeTypeRef:
     apiVersion: storage.bnl-ms.myengie.com/v1alpha1
@@ -15,7 +15,7 @@ spec:
       apiVersion: pt.fn.crossplane.io/v1beta1
       kind: Resources
       resources:
-      - name: s3-bucket-lock-disabled
+      - name: s3-bucket-engie
         base:
           apiVersion: s3.aws.upbound.io/v1beta2
           kind: Bucket
