@@ -22,13 +22,13 @@ spec:
           metadata:
             name: TO_PATCH # will be overwritten via patch
           spec:
-            deletionPolicy: Orphan
+            deletionPolicy: Orphan # cloud resource will never be deleted (default = Delete)
             providerConfigRef:
               name: default-azure-provider
             forProvider:
-              location: TO_PATCH # will be overwritten via patch
+              region: eu-west-1
               tags:
-                environment: development
+                environment: sandbox
                 managed-by: crossplane
         patches:
         - type: CombineFromComposite
