@@ -1,3 +1,4 @@
+# https://marketplace.upbound.io/providers/upbound/provider-aws-s3/v1.23.1/resources/s3.aws.upbound.io/Bucket/v1beta2
 apiVersion: apiextensions.crossplane.io/v1
 kind: Composition
 metadata:
@@ -31,11 +32,38 @@ spec:
                 environment: sandbox
                 managed-by: crossplane
         patches:
-        - type: CombineFromComposite
-          combine:
-            variables:
-            - fromFieldPath: "spec.bucketName"
-            strategy: string
-            string:
-              fmt: "engie-%s"
-          toFieldPath: "metadata.name"
+          - type: CombineFromComposite
+            combine:
+              variables:
+                - fromFieldPath: "spec.bucketName"
+              strategy: string
+              string:
+                fmt: "engie-%s"
+            toFieldPath: "metadata.name"
+      - name: s3-bucket-versioning-engie
+        base:
+          apiVersion: s3.aws.upbound.io/v1beta1
+          kind: BucketVersioning
+          metadata:
+            name: TO_PATCH
+          spec:
+            deletionPolicy: Orphan
+            providerConfigRef:
+              name: provider-aws-s3
+            forProvider:
+              region: eu-west-1
+              bucket: TO_PATCH
+              versioningConfiguration:
+                status: "Enabled"
+        patches:
+          - type: CombineFromComposite
+            combine:
+              variables:
+                - fromFieldPath: "spec.bucketName"
+              strategy: string
+              string:
+                fmt: "engie-%s-versioning"
+            toFieldPath: "metadata.name"
+          - type: FromCompositeFieldPath
+            fromFieldPath: "spec.bucketName"
+            toFieldPath: "spec.forProvider.bucket"
