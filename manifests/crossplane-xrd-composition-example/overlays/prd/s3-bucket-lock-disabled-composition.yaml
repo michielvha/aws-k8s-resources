@@ -37,5 +37,5 @@ spec:
             - fromFieldPath: "spec.bucketName"
             strategy: string
             string:
-              fmt: "engie-%s"
+              fmt: "engie-bnl-ms-%s"
           toFieldPath: "metadata.name"
