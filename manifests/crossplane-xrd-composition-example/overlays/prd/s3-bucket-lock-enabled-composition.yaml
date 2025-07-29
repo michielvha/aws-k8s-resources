@@ -24,7 +24,7 @@ spec:
           spec:
             deletionPolicy: Orphan # cloud resource will never be deleted (default = Delete)
             providerConfigRef:
-              name: default-azure-provider
+              name: provider-aws-s3
             forProvider:
               region: eu-west-1
               objectLockEnabled: true
