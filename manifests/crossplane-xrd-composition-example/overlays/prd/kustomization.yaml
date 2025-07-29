@@ -5,3 +5,4 @@ resources:
 - s3-bucket-xrd.yaml
 - s3-bucket-lock-enabled-composition.yaml
 - s3-bucket-lock-disabled-composition.yaml
+- s3-bucket-claims.yaml
