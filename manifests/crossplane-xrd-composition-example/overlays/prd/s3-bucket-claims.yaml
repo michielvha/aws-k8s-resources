@@ -1,0 +1,17 @@
+apiVersion: storage.bnl-ms.myengie.com/v1alpha1
+kind: EngieBucket
+metadata:
+  name: bucket1-lock-enabled-claim
+spec:
+  bucketName: "1234" # Will be prefixed with prefix from the composition
+  compositionRef:
+    name: xbucket-lock-enabled
+---
+apiVersion: storage.bnl-ms.myengie.com/v1alpha1
+kind: EngieBucket
+metadata:
+  name: bucket1-lock-disabled-claim
+spec:
+  bucketName: "5678" # Will be prefixed with prefix from the composition
+  compositionRef:
+    name: xbucket-lock-disabled
