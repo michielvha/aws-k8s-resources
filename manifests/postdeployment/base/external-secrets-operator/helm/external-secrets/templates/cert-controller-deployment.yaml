@@ -1,9 +1,9 @@
-{{- if and .Values.certController.create (not .Values.webhook.certManager.enabled) }}
+{{- if .Values.certController.create }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "external-secrets.fullname" . }}-cert-controller
-  namespace: {{ template "external-secrets.namespace" . }}
+  namespace: {{ .Release.Namespace | quote }}
   labels:
     {{- include "external-secrets-cert-controller.labels" . | nindent 4 }}
   {{- with .Values.certController.deploymentAnnotations }}
@@ -23,7 +23,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "external-secrets-cert-controller.labels" . | nindent 8 }}
+        {{- include "external-secrets-cert-controller.selectorLabels" . | nindent 8 }}
         {{- with .Values.certController.podLabels }}
           {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -35,40 +35,29 @@ spec:
       serviceAccountName: {{ include "external-secrets-cert-controller.serviceAccountName" . }}
       automountServiceAccountToken: {{ .Values.certController.serviceAccount.automount }}
       {{- with .Values.certController.podSecurityContext }}
-       {{- if and (.enabled) (gt (keys . | len) 1) }}
       securityContext:
-        {{- include "external-secrets.renderSecurityContext" (dict "securityContext" . "context" $) | nindent 8 }}
-      {{- end }}
+        {{- toYaml . | nindent 8 }}
       {{- end }}
       hostNetwork: {{ .Values.certController.hostNetwork }}
       containers:
         - name: cert-controller
           {{- with .Values.certController.securityContext }}
-          {{- if and (.enabled) (gt (keys . | len) 1) }}
           securityContext:
-            {{- include "external-secrets.renderSecurityContext" (dict "securityContext" . "context" $) | nindent 12 }}
+            {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- end }}
-          image: {{ include "external-secrets.image" (dict "chartAppVersion" .Chart.AppVersion "image" .Values.certController.image) | trim }}
+          image: "{{ .Values.certController.image.repository }}:{{ .Values.certController.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.certController.image.pullPolicy }}
           args:
           - certcontroller
           - --crd-requeue-interval={{ .Values.certController.requeueInterval }}
           - --service-name={{ include "external-secrets.fullname" . }}-webhook
-          - --service-namespace={{ template "external-secrets.namespace" . }}
+          - --service-namespace={{ .Release.Namespace }}
           - --secret-name={{ include "external-secrets.fullname" . }}-webhook
-          - --secret-namespace={{ template "external-secrets.namespace" . }}
-          - --metrics-addr=:{{ .Values.certController.metrics.listen.port }}
-          - --healthz-addr={{ .Values.certController.readinessProbe.address }}:{{ .Values.certController.readinessProbe.port }}
-          - --loglevel={{ .Values.certController.log.level }}
-          - --zap-time-encoding={{ .Values.certController.log.timeEncoding }}
-          {{- if not .Values.crds.createClusterSecretStore }}
+          - --secret-namespace={{ .Release.Namespace }}
+          {{ if not .Values.crds.createClusterSecretStore -}}
           - --crd-names=externalsecrets.external-secrets.io
           - --crd-names=secretstores.external-secrets.io
-          {{- end }}
-          {{- if .Values.installCRDs }}
-          - --enable-partial-cache=true
-          {{- end }}
+          {{- end -}}
           {{- range $key, $value := .Values.certController.extraArgs }}
             {{- if $value }}
           - --{{ $key }}={{ $value }}
@@ -77,12 +66,12 @@ spec:
             {{- end }}
           {{- end }}
           ports:
-            - containerPort: {{ .Values.certController.metrics.listen.port }}
+            - containerPort: {{ .Values.certController.prometheus.service.port }}
               protocol: TCP
               name: metrics
           readinessProbe:
             httpGet:
-              port: {{ .Values.certController.readinessProbe.port }}
+              port: 8081
               path: /readyz
             initialDelaySeconds: 20
             periodSeconds: 5
@@ -102,19 +91,19 @@ spec:
       volumes:
       {{- toYaml .Values.certController.extraVolumes | nindent 8 }}
       {{- end }}
-      {{- with .Values.certController.nodeSelector | default .Values.global.nodeSelector }}
+      {{- with .Values.certController.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.certController.affinity | default .Values.global.affinity }}
+      {{- with .Values.certController.affinity }}
       affinity:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.certController.tolerations | default .Values.global.tolerations }}
+      {{- with .Values.certController.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.certController.topologySpreadConstraints | default .Values.global.topologySpreadConstraints }}
+      {{- with .Values.certController.topologySpreadConstraints }}
       topologySpreadConstraints:
         {{- toYaml . | nindent 8 }}
       {{- end }}

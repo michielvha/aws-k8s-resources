@@ -24,17 +24,6 @@ If release name contains chart name it will be used as a full name.
 {{- end }}
 
 {{/*
-Define namespace of chart, useful for multi-namespace deployments
-*/}}
-{{- define "external-secrets.namespace" -}}
-{{- if .Values.namespaceOverride }}
-{{- .Values.namespaceOverride }}
-{{- else }}
-{{- .Release.Namespace }}
-{{- end }}
-{{- end }}
-
-{{/*
 Create chart name and version as used by the chart label.
 */}}
 {{- define "external-secrets.chart" -}}
@@ -66,26 +55,6 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- with .Values.commonLabels }}
 {{ toYaml . }}
 {{- end }}
-{{- if and ( .Capabilities.APIVersions.Has "monitoring.coreos.com/v1" ) .Values.serviceMonitor.enabled }}
-app.kubernetes.io/metrics: "webhook"
-{{- with .Values.webhook.service.labels }}
-{{ toYaml . }}
-{{- end }}
-{{- end }}
-{{- end }}
-
-{{- define "external-secrets-webhook.annotations" -}}
-{{- if or .Values.webhook.service.annotations (and .Values.webhook.metrics.service.enabled .Values.webhook.metrics.service.annotations) -}}
-annotations:
-{{- with .Values.webhook.service.annotations }}
-  {{- toYaml . | nindent 2 }}
-{{- end }}
-{{- if .Values.webhook.metrics.service.enabled }}
-{{- with .Values.webhook.metrics.service.annotations }}
-  {{- toYaml . | nindent 2 }}
-{{- end }}
-{{- end }}
-{{- end }}
 {{- end }}
 
 {{- define "external-secrets-webhook-metrics.labels" -}}
@@ -105,9 +74,6 @@ app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- with .Values.commonLabels }}
 {{ toYaml . }}
-{{- end }}
-{{- if and ( .Capabilities.APIVersions.Has "monitoring.coreos.com/v1" ) .Values.serviceMonitor.enabled }}
-app.kubernetes.io/metrics: "cert-controller"
 {{- end }}
 {{- end }}
 
@@ -167,55 +133,3 @@ Create the name of the service account to use
 {{- end }}
 {{- end }}
 
-{{/*
-Determine the image to use, including if using a flavour.
-*/}}
-{{- define "external-secrets.image" -}}
-{{- if .image.flavour -}}
-{{ printf "%s:%s-%s" .image.repository (.image.tag | default .chartAppVersion) .image.flavour }}
-{{- else }}
-{{ printf "%s:%s" .image.repository (.image.tag | default .chartAppVersion) }}
-{{- end }}
-{{- end }}
-
-{{/*
-Renders a complete tree, even values that contains template.
-*/}}
-{{- define "external-secrets.render" -}}
-  {{- if typeIs "string" .value }}
-    {{- tpl .value .context }}
-  {{ else }}
-    {{- tpl (.value | toYaml) .context }}
-  {{- end }}
-{{- end -}}
-
-{{/*
-Return true if the OpenShift is the detected platform
-Usage:
-{{- include "external-secrets.isOpenShift" . -}}
-*/}}
-{{- define "external-secrets.isOpenShift" -}}
-{{- if .Capabilities.APIVersions.Has "security.openshift.io/v1" -}}
-{{- true -}}
-{{- end -}}
-{{- end -}}
-
-{{/*
-Render the securityContext based on the provided securityContext
-  {{- include "external-secrets.renderSecurityContext" (dict "securityContext" .Values.securityContext "context" $) -}}
-*/}}
-{{- define "external-secrets.renderSecurityContext" -}}
-{{- $adaptedContext := .securityContext -}}
-{{- if .context.Values.global.compatibility -}}
-  {{- if .context.Values.global.compatibility.openshift -}}
-    {{- if or (eq .context.Values.global.compatibility.openshift.adaptSecurityContext "force") (and (eq .context.Values.global.compatibility.openshift.adaptSecurityContext "auto") (include "external-secrets.isOpenShift" .context)) -}}
-      {{/* Remove OpenShift managed fields */}}
-      {{- $adaptedContext = omit $adaptedContext "fsGroup" "runAsUser" "runAsGroup" -}}
-      {{- if not .securityContext.seLinuxOptions -}}
-        {{- $adaptedContext = omit $adaptedContext "seLinuxOptions" -}}
-      {{- end -}}
-    {{- end -}}
-  {{- end -}}
-{{- end -}}
-{{- omit $adaptedContext "enabled" | toYaml -}}
-{{- end -}}

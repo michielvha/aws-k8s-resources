@@ -1,9 +1,9 @@
-{{- if and .Values.certController.create .Values.certController.podDisruptionBudget.enabled (not .Values.webhook.certManager.enabled) }}
+{{- if and .Values.certController.create .Values.certController.podDisruptionBudget.enabled }}
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: {{ include "external-secrets.fullname" . }}-cert-controller-pdb
-  namespace: {{ template "external-secrets.namespace" . }}
+  namespace: {{ .Release.Namespace | quote }}
   labels:
     {{- include "external-secrets-cert-controller.labels" . | nindent 4 }}
 spec:
