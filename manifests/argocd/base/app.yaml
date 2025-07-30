@@ -101,3 +101,30 @@ spec:
       - PruneLast=true
 #      - ServerSideApply=true
       - createNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: postdeployment
+  namespace: infra
+  annotations:
+     argocd.argoproj.io/sync-options: FinalizerPropagation=foreground
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: infra
+    name: in-cluster
+  project: default
+  source:
+    path: manifests/postdeployment/overlays/prd
+    repoURL: https://github.com/michielvha/aws-k8s-resources
+    targetRevision: main
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+    syncOptions:
+      - PruneLast=true
+#      - ServerSideApply=true
+      - createNamespace=true
