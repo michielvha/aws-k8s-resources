@@ -4,15 +4,15 @@ kind: Kustomization
 resources:
   - namespace.yaml
 
-images:
-  - name: ghcr.io/external-secrets/external-secrets
-    newName: 833935676990.dkr.ecr.eu-west-1.amazonaws.com/ghcr.io/external-secrets/external-secrets
+#images:
+#  - name: ghcr.io/external-secrets/external-secrets
+#    newName: 833935676990.dkr.ecr.eu-west-1.amazonaws.com/ghcr.io/external-secrets/external-secrets
 
 helmGlobals:
   chartHome: helm
 
 helmCharts:
-  - version: 0.9.1
+  - version: 0.18.2
     releaseName: external-secrets
     name: external-secrets
     namespace: external-secrets
@@ -21,4 +21,4 @@ helmCharts:
         annotations:
         name: external-secrets
 
-#    repo: https://charts.external-secrets.io
+    repo: https://charts.external-secrets.io
