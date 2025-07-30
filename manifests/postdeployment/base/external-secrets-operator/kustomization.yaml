@@ -9,8 +9,12 @@ images:
   - name: ghcr.io/external-secrets/external-secrets
     newName: 833935676990.dkr.ecr.eu-west-1.amazonaws.com/ghcr.io/external-secrets/external-secrets
 
+helmGlobals:
+  chartHome: helm
+
 helmCharts:
-  repo: https://charts.external-secrets.io
-  version: 0.16.1
-  releaseName: external-secrets
-  namespace: external-secrets
+  - version: 0.16.1
+    releaseName: external-secrets
+    name: external-secrets
+    namespace: external-secrets
+#    repo: https://charts.external-secrets.io
