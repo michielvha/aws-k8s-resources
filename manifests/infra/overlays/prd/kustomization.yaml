@@ -4,6 +4,6 @@ kind: Kustomization
 namespace: infra
 
 resources:
-  - bucket.yaml
-  - bucket-upbound.yaml
-  - bucket-engie.yaml
+#  - bucket.yaml
+#  - bucket-upbound.yaml
+#  - bucket-engie.yaml
