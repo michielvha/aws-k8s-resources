@@ -8,25 +8,9 @@ resources:
   - rbac.yaml
   - app.yaml
   - namespace.yaml
-  - ingress.yaml
   - project.yaml
 
-images:
-  - name: quay.io/argoproj/argocd
-    newName: 833935676990.dkr.ecr.eu-west-1.amazonaws.com/quay/argoproj/argocd
-
-  - name: public.ecr.aws/docker/library/redis
-    newName: 833935676990.dkr.ecr.eu-west-1.amazonaws.com/docker/library/redis
-
-  - name: public.ecr.aws/docker/library/haproxy
-    newName: 833935676990.dkr.ecr.eu-west-1.amazonaws.com/docker/library/haproxy
-
-  - name: ghcr.io/dexidp/dex
-    newName: 833935676990.dkr.ecr.eu-west-1.amazonaws.com/github/dexidp/dex
-
-
 patches:
-#  - path: patches.yaml
   - target:
       kind: ConfigMap
       name: argocd-cmd-params-cm
