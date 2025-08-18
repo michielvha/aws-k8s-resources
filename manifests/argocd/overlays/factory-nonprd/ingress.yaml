@@ -28,6 +28,7 @@ metadata:
   name: argocd-server-ingress
   annotations:
     alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/scheme: internal
     # (optional) pin subnets instead of auto-discovery:
     # alb.ingress.kubernetes.io/subnets: subnet-03cca5bfbe0945398,subnet-0e85b0947305743fa
     # (optional) TLS via ACM on the ALB:
