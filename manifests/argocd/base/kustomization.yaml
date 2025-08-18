@@ -4,17 +4,17 @@ kind: Kustomization
 namespace: argocd
 
 resources:
-  - https://raw.githubusercontent.com/argoproj/argo-cd/v3.0.0/manifests/ha/install.yaml
+  - https://raw.githubusercontent.com/argoproj/argo-cd/v3.0.0/manifests/install.yaml # https://raw.githubusercontent.com/argoproj/argo-cd/v3.0.0/manifests/ha/install.yaml
   - rbac.yaml
   - app.yaml
   - namespace.yaml
   - project.yaml
 
-patches:
-  - target:
-      kind: ConfigMap
-      name: argocd-cmd-params-cm
-    patch: |-
-      - op: add
-        path: /data/server.insecure
-        value: "true"
+#patches:
+#  - target:
+#      kind: ConfigMap
+#      name: argocd-cmd-params-cm
+#    patch: |-
+#      - op: add
+#        path: /data/server.insecure
+#        value: "true"
