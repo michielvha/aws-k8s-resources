@@ -11,7 +11,8 @@ images:
   - name: quay.io/argoproj/argocd
     newName: 466323560378.dkr.ecr.eu-central-1.amazonaws.com/quay/argoproj/argocd
 
-  - name: public.ecr.aws/docker/library/redis
+#  - name: public.ecr.aws/docker/library/redis
+  - name: redis
     newName: 466323560378.dkr.ecr.eu-central-1.amazonaws.com/docker/library/redis
 
   - name: public.ecr.aws/docker/library/haproxy
