@@ -1,26 +1,26 @@
 # IngressClassParams for the AWS Load Balancer Controller (standard EKS)
-apiVersion: elbv2.k8s.aws/v1beta1
-kind: IngressClassParams
-metadata:
-  name: internal-class
-spec:
-  scheme: internal              # or internet-facing
-  ipAddressType: ipv4           # or dualstack
-  group:
-    name: shared-internal       # share one ALB across many ingresses
----
-apiVersion: networking.k8s.io/v1
-kind: IngressClass
-metadata:
-  name: internal-alb
-  annotations:
-    ingressclass.kubernetes.io/is-default-class: "true"
-spec:
-  controller: ingress.k8s.aws/alb
-  parameters:
-    apiGroup: elbv2.k8s.aws
-    kind: IngressClassParams
-    name: internal-class
+#apiVersion: elbv2.k8s.aws/v1beta1
+#kind: IngressClassParams
+#metadata:
+#  name: internal-class
+#spec:
+#  scheme: internal              # or internet-facing
+#  ipAddressType: ipv4           # or dualstack
+#  group:
+#    name: shared-internal       # share one ALB across many ingresses
+#---
+#apiVersion: networking.k8s.io/v1
+#kind: IngressClass
+#metadata:
+#  name: internal-alb
+#  annotations:
+#    ingressclass.kubernetes.io/is-default-class: "true"
+#spec:
+#  controller: ingress.k8s.aws/alb
+#  parameters:
+#    apiGroup: elbv2.k8s.aws
+#    kind: IngressClassParams
+#    name: internal-class
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -28,14 +28,13 @@ metadata:
   name: argocd-server-ingress
   annotations:
     alb.ingress.kubernetes.io/target-type: ip
-    alb.ingress.kubernetes.io/scheme: internal
     # (optional) pin subnets instead of auto-discovery:
     # alb.ingress.kubernetes.io/subnets: subnet-03cca5bfbe0945398,subnet-0e85b0947305743fa
     # (optional) TLS via ACM on the ALB:
     # alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
     # alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:eu-west-1:123456789012:certificate/...
 spec:
-  ingressClassName: internal-alb
+  ingressClassName: alb
   rules:
   - http:
       paths:

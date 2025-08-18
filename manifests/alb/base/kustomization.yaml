@@ -10,13 +10,38 @@ helmCharts:
   repo: https://aws.github.io/eks-charts
   version: 1.13.4
   valuesInline:
-    clusterName: b2c-01
+    clusterName: mgmt
     region: eu-central-1
     serviceAccount:
       create: true
       name: aws-load-balancer-controller
-    controller:
-      extraArgs:
-        enable-shield: "false"
-        enable-waf: "false"
-        enable-wafv2: "false"
+    enableShield: false
+    enableWaf: false
+    enableWafv2: false
+    # Ingress class configuration
+    ingressClass: alb
+    # IngressClassParams configuration
+    ingressClassParams:
+      create: true
+      name: alb-ingress-class-params
+      spec:
+        # Configure load balancer attributes for better performance and security
+        loadBalancerAttributes:
+        - key: idle_timeout.timeout_seconds
+          value: "60"
+        - key: routing.http2.enabled
+          value: "true"
+        - key: access_logs.s3.enabled
+          value: "false"
+        ipAddressType: ipv4
+        scheme: internal
+        group:
+          name: shared-internal
+        tags:
+        - key: Environment
+          value: production
+        - key: ManagedBy
+          value: aws-load-balancer-controller
+        - key: Cluster
+          value: mgmt
+    createIngressClassResource: true
