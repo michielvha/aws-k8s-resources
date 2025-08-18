@@ -10,7 +10,13 @@ helmCharts:
   repo: https://aws.github.io/eks-charts
   version: 1.13.4
   valuesInline:
-    clusterName: my-cluster
+    clusterName: b2c-01
+    region: eu-central-1
     serviceAccount:
       create: true
       name: aws-load-balancer-controller
+    controller:
+      extraArgs:
+        enable-shield: "false"
+        enable-waf: "false"
+        enable-wafv2: "false"
