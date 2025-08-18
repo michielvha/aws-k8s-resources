@@ -20,5 +20,8 @@ images:
   - name: ghcr.io/dexidp/dex
     newName: 466323560378.dkr.ecr.eu-central-1.amazonaws.com/github/dexidp/dex
 
+  - name: ghcr.io/stakater/reloader
+    newName: 466323560378.dkr.ecr.eu-central-1.amazonaws.com/github/stakater/reloader
+
 patches:
  - path: patches.yaml
