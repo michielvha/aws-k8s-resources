@@ -6,6 +6,7 @@ namespace: argocd
 resources:
   - ../../base
   - ../../../reloader
+  - ingress.yaml
 
 images:
   - name: quay.io/argoproj/argocd
