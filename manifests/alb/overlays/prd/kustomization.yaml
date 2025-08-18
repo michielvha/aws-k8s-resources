@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: kube-system
+
+resources:
+- ../../base
+
+images:
+  - name: public.ecr.aws/eks/aws-load-balancer-controller
+    newName: 466323560378.dkr.ecr.eu-central-1.amazonaws.com/ecr-public/eks/aws-load-balancer-controller
+
