@@ -13,10 +13,10 @@ helmCharts:
     clusterName: mgmt
     region: eu-central-1
     serviceAccount:
-      create: true
+      create: false
       name: aws-load-balancer-controller
-      annotations:
-        eks.amazonaws.com/role-arn: "arn:aws:iam::466323560378:role/mgmt-alb-controller"
+#      annotations:
+#        eks.amazonaws.com/role-arn: "arn:aws:iam::466323560378:role/mgmt-alb-controller"
     enableShield: false
     enableWaf: false
     enableWafv2: false

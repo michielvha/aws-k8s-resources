@@ -5,6 +5,7 @@ namespace: kube-system
 
 resources:
 - ../../base
+- serviceaccount.yaml
 
 images:
   - name: public.ecr.aws/eks/aws-load-balancer-controller
