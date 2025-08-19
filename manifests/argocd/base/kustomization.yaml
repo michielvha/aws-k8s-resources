@@ -8,7 +8,7 @@ resources:
   - rbac.yaml
   - app.yaml
   - namespace.yaml
-  - project.yaml
+#  - project.yaml
 
 #patches:
 #  - target:
