@@ -28,3 +28,10 @@ images:
 
 patches:
  - path: patches.yaml
+ - target:
+     kind: Application
+     name: argocd
+   patch: |-
+     - op: replace
+       path: /spec/source/path
+       value: manifests/argocd/overlays/factory-nonprd
