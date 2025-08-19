@@ -7,7 +7,7 @@ metadata:
 spec:
   destination:
     namespace: argocd
-    name: b2c-01
+    name: in-cluster # b2c-01
   project: default
   source:
     path: manifests/debug/overlays/prd
