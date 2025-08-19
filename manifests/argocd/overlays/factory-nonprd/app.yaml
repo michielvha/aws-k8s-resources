@@ -19,3 +19,25 @@ spec:
       prune: true
     syncOptions:
       - PruneLast=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: debug
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: argocd
+    name: b2c-01
+  project: default
+  source:
+    path: manifests/debug/overlays/prd
+    repoURL: https://github.com/michielvha/aws-k8s-resources
+    targetRevision: main
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+    syncOptions:
+      - PruneLast=true
