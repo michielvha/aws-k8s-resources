@@ -6,3 +6,6 @@ namespace: default
 resources:
   - ../../base
 
+images:
+  - name: nicolaka/netshoot
+    newName: 823091238322.dkr.ecr.eu-central-1.amazonaws.com/docker/nicolaka/netshoot
