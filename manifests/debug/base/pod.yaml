@@ -6,6 +6,6 @@ metadata:
 spec:
   containers:
   - name: netshoot
-    image: nicolaka/netshoot
+    image: nicolaka/netshoot:v0.14
     command: ["/bin/bash"]
     args: ["-c", "while true; do ping localhost; sleep 60;done"]
