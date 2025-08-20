@@ -1,0 +1,37 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: argocd
+
+resources:
+  - ../../base
+  - ../../../reloader
+#  - ingress.yaml
+  - app.yaml
+
+images:
+  - name: quay.io/argoproj/argocd
+    newName: 823091238322.dkr.ecr.eu-central-1.amazonaws.com/quay/argoproj/argocd
+
+#  - name: public.ecr.aws/docker/library/redis
+  - name: redis
+    newName: 823091238322.dkr.ecr.eu-central-1.amazonaws.com/docker/library/redis
+
+  - name: public.ecr.aws/docker/library/haproxy
+    newName: 823091238322.dkr.ecr.eu-central-1.amazonaws.com/docker/library/haproxy
+
+  - name: ghcr.io/dexidp/dex
+    newName: 823091238322.dkr.ecr.eu-central-1.amazonaws.com/github/dexidp/dex
+
+  - name: ghcr.io/stakater/reloader
+    newName: 823091238322.dkr.ecr.eu-central-1.amazonaws.com/github/stakater/reloader
+
+patches:
+ - path: patches.yaml
+ - target:
+     kind: Application
+     name: argocd
+   patch: |-
+     - op: replace
+       path: /spec/source/path
+       value: manifests/argocd/overlays/factory-nonprd

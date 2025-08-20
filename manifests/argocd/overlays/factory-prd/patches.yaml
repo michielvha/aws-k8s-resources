@@ -1,0 +1,77 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cmd-params-cm
+  labels:
+    app.kubernetes.io/name: argocd-cmd-params-cm
+    app.kubernetes.io/part-of: argocd
+data:
+ application.namespaces: infra
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cm
+  labels:
+    app.kubernetes.io/name: argocd-cm
+    app.kubernetes.io/part-of: argocd
+data:
+  kustomize.buildOptions: --enable-helm
+---
+#apiVersion: v1
+#kind: ConfigMap
+#metadata:
+#  name: argocd-tls-certs-cm
+#  namespace: argocd
+#  labels:
+#    app.kubernetes.io/name: argocd-tls-certs-cm
+#    app.kubernetes.io/part-of: argocd
+#data:
+#  kyverno.github.io: |
+#    -----BEGIN CERTIFICATE-----
+#    MIID5jCCAs6gAwIBAgIIahK5ESQ1PKYwDQYJKoZIhvcNAQELBQAwgakxCzAJBgNV
+#    BAYTAlVTMRMwEQYDVQQIDApDYWxpZm9ybmlhMRIwEAYDVQQHDAlTdW5ueXZhbGUx
+#    ETAPBgNVBAoMCEZvcnRpbmV0MR4wHAYDVQQLDBVDZXJ0aWZpY2F0ZSBBdXRob3Jp
+#    dHkxGTAXBgNVBAMMEEZHVk1FTFRNMjQwMDQyOTIxIzAhBgkqhkiG9w0BCQEWFHN1
+#    cHBvcnRAZm9ydGluZXQuY29tMB4XDTI0MDQxOTIxMDMzN1oXDTM0MDQyMDIxMDMz
+#    N1owgakxCzAJBgNVBAYTAlVTMRMwEQYDVQQIDApDYWxpZm9ybmlhMRIwEAYDVQQH
+#    DAlTdW5ueXZhbGUxETAPBgNVBAoMCEZvcnRpbmV0MR4wHAYDVQQLDBVDZXJ0aWZp
+#    Y2F0ZSBBdXRob3JpdHkxGTAXBgNVBAMMEEZHVk1FTFRNMjQwMDQyOTIxIzAhBgkq
+#    hkiG9w0BCQEWFHN1cHBvcnRAZm9ydGluZXQuY29tMIIBIjANBgkqhkiG9w0BAQEF
+#    AAOCAQ8AMIIBCgKCAQEArMATWZd2NRj3kRjHXRcNItmPPixI4whBNecCZe64RVcv
+#    QHukswRfOLm9Cup31EVzwOs5DlziWeEWdze+ZFmdhtGdTsV7RvNqBNha4I1etxTE
+#    MJQDoMf3sAVdzOkbF72+uWUhrC9HnqsYPbxstn2qDUVpAhsbQEMlVrxFJmmnFVrr
+#    kUTHugQvJ8sp9CkKOy5EYbmKDauZa+kIIrugyXXN0VOMkrbfRpBt1DSXsFJMwvc3
+#    9+bo5p5GZaG1s3YdN6y23eXFo5lRtaKAbqElzc5VlbXHFvMRu3GIDUmgHct/p7Jq
+#    kbzEv0ajLEVaj3sUBb98FdyFV+OiA7r0PDUm2fo2PwIDAQABoxAwDjAMBgNVHRME
+#    BTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBAQCLznyaqdmBQ1HxEDFhcAzYCqjs8yJz
+#    uWOdPGu1i/7OI9mror4VGVRSgNCkQEqLbAsbMzV1ind0FAvW9BkoweMTbhL5vWe/
+#    QZEXQX6L6ovMr4+rnSMXX7Z6LJ8Lcs/4fPXUNrmmh7iHhR5l0JVCX2VztR4GUcvM
+#    U2imqJ2+yVD4ayqtXFx/6eKNwAyXaN1Z2sR5AwauAaUw5DNCPBfdw9mmOc9cQGLB
+#    YxN6XPi1eHAA0FRBHeHx7IXCMoDaqCE3mrqPbhc5u8fAx/97h4cr/uLOG652jkr6
+#    0/O4yRLD8dR5OxEQyKFK3qk3tKqqFiygRsun9knCpTY/qsYLSEewWc7Z
+#    -----END CERTIFICATE-----
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argocd-server
+spec:
+  template:
+    metadata:
+      annotations:
+        reloader.stakater.com/auto: "true"
+        # configmap.reloader.stakater.com/reload: "argocd-rbac-cm,argocd-cm,argocd-cmd-params-cm"
+---
+apiVersion:  apps/v1
+kind: StatefulSet
+metadata:
+  namespace: argocd
+  name: argocd-application-controller
+spec:
+  template:
+    metadata:
+      annotations:
+        reloader.stakater.com/auto: "true"
+#        configmap.reloader.stakater.com/reload: "argocd-rbac-cm,argocd-cm,argocd-cmd-params-cm"
+---
