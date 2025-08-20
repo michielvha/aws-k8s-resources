@@ -34,4 +34,4 @@ patches:
    patch: |-
      - op: replace
        path: /spec/source/path
-       value: manifests/argocd/overlays/factory-nonprd
+       value: manifests/argocd/overlays/factory-prd
