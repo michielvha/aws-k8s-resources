@@ -51,7 +51,7 @@ metadata:
 spec:
   destination:
     namespace: argocd
-    name: in-cluster # b2c-01
+    name: in-cluster
   project: default
   source:
     path: manifests/alb/overlays/prd
