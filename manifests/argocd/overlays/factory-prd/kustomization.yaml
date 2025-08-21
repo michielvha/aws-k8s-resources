@@ -6,7 +6,7 @@ namespace: argocd
 resources:
   - ../../base
   - ../../../reloader
-#  - ingress.yaml
+  - ingress.yaml
   - app.yaml
 
 images:
