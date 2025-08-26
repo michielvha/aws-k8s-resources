@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: echoserver
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip   # or "instance"
+    # service.beta.kubernetes.io/aws-load-balancer-scheme: internal     # or "internet-facing"
+    # service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+spec:
+  type: LoadBalancer
+  loadBalancerClass: service.k8s.aws/nlb   # <-- this is the “class”
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
+  selector:
+    app: echoserver
