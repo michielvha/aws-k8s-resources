@@ -12,7 +12,7 @@ metadata:
     # service.beta.kubernetes.io/aws-load-balancer-ssl-cert: $SSL_CERT_ARN                   # Provide an SSL cert for the LB
     # service.beta.kubernetes.io/aws-load-balancer-ssl-ports: $NON_STANDARD_SSL_PORT
   type: LoadBalancer
-  loadBalancerClass: service.k8s.aws/nlb   # <-- this is the “class”
+  loadBalancerClass: service.k8s.aws/nlb
   ports:
   - port: 80
     targetPort: 8080
