@@ -4,7 +4,12 @@ metadata:
   name: api
   annotations:
     # Reference: https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.2/guide/service/annotations/
-    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: true
+    service.beta.kubernetes.io/aws-load-balancer-attributes: >
+    load_balancing.cross_zone.enabled=true,
+    deletion_protection.enabled=true,
+    access_logs.s3.enabled=true,
+    access_logs.s3.bucket=my-access-log-bucket,
+    access_logs.s3.prefix=api
     service.beta.kubernetes.io/aws-load-balancer-scheme: internal                            # or "internet-facing"
     service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip                         # or "instance", use IP unless you know why you might want an instance
     # service.beta.kubernetes.io/aws-load-balancer-private-ipv4-addresses: $YOUR_IP          # Define a static internal IP, great for when assigning dns names to this lb, to make sure it does not change fortend IP.
