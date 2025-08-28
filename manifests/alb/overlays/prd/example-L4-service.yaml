@@ -4,7 +4,7 @@ metadata:
   name: api
   annotations:
     # Reference: https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.2/guide/service/annotations/
-    service.beta.kubernetes.io/aws-load-balancer-attributes: >
+    service.beta.kubernetes.io/aws-load-balancer-attributes: >-
       load_balancing.cross_zone.enabled=true,
       deletion_protection.enabled=true,
       access_logs.s3.enabled=true,
