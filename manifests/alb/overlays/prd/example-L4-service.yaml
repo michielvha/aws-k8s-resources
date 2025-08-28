@@ -3,7 +3,13 @@ kind: Service
 metadata:
   name: echoserver
   annotations:
-    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip   # or "instance"
+    # Reference: https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.2/guide/service/annotations/
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip   # or "instance", use IP unless you know why you might want an instance
+    # service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: true
+    # service.beta.kubernetes.io/aws-load-balancer-ssl-cert: $SSL_CERT_ARN # Provide an SSL cert for the LB
+    # service.beta.kubernetes.io/aws-load-balancer-ssl-ports: $NON_STANDARD_SSL_PORT
+    # service.beta.kubernetes.io/load-balancer-source-ranges: $SOURCE_IP_RANGES # Restrict Source IP ranges
+    # service.beta.kubernetes.io/aws-load-balancer-private-ipv4-addresses: $YOUR_IP # Define a static IP, I like this approach
     # service.beta.kubernetes.io/aws-load-balancer-scheme: internal     # or "internet-facing"
     # service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
 spec:
