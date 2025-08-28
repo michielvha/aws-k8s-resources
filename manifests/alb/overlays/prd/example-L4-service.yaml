@@ -20,8 +20,8 @@ spec:
   type: LoadBalancer
   loadBalancerClass: service.k8s.aws/nlb
   ports:
-  - port: 80
-    targetPort: 8080
+  - port: 443
+    targetPort: 443
     protocol: TCP
   selector:
     app: api
