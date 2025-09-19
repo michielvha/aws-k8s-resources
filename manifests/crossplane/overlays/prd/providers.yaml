@@ -13,7 +13,6 @@ apiVersion: pkg.crossplane.io/v1
 kind: Provider
 metadata:
   name: provider-aws-s3
-  namespace: crossplane-system
 spec:
   package: xpkg.upbound.io/upbound/provider-aws-s3:v1
   runtimeConfigRef:
@@ -23,7 +22,6 @@ apiVersion: pkg.crossplane.io/v1
 kind: Provider
 metadata:
   name: provider-family-aws
-  namespace: crossplane-system
 spec:
   package: xpkg.upbound.io/upbound/provider-family-aws:v1
   runtimeConfigRef:
@@ -32,8 +30,9 @@ spec:
 apiVersion: aws.upbound.io/v1beta1
 kind: ProviderConfig
 metadata:
-    name: provider-aws-s3
+  name: provider-config-aws-s3
+  namespace: crossplane-system
 spec:
-#    region: eu-west-1
-    credentials:
-        source: PodIdentity
+# region: eu-west-1
+  credentials:
+    source: PodIdentity
