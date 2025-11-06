@@ -6,6 +6,11 @@ on:
       - 'manifests/*'
     branches:
       - main
+  push:
+    paths:
+      - 'manifests/*'
+    branches:
+      - main
 
 jobs:
   validate:
