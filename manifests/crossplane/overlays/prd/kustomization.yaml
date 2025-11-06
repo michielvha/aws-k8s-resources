@@ -16,7 +16,7 @@ helmGlobals:
 helmCharts:
 - name: crossplane
   repo: https://charts.crossplane.io/stable
-  version: 1.20.1
+  version: 2.1.0
   releaseName: crossplane
   namespace: crossplane-system
   includeCRDs: true
