@@ -2,13 +2,9 @@ name: Kustomize Build Check - Basic
 
 on:
   pull_request:
-    paths:
-      - 'manifests/*'
     branches:
       - main
   push:
-    paths:
-      - 'manifests/*'
     branches:
       - main
 
