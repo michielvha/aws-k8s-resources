@@ -24,3 +24,4 @@ jobs:
         with:
           enable-helm: true
           fail-on-error: true
+          base-ref: ${{ github.event.pull_request.base.sha || 'HEAD~1' }}
