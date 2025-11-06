@@ -10,8 +10,8 @@ resources:
 - s3-bucket-composition.yaml
 - functions.yaml
 
-helmGlobals:
-  chartHome: helm
+# helmGlobals:
+#   chartHome: helm
 
 helmCharts:
 - name: crossplane
