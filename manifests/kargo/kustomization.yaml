@@ -6,9 +6,9 @@ namespace: kargo
 resources:
   - namespace.yaml
 
-images:
-  - name: ghcr.io/akuity/kargo
-    newName: 833935676990.dkr.ecr.eu-west-1.amazonaws.com/github/akuity/kargo
+#images:
+#  - name: ghcr.io/akuity/kargo
+#    newName: 833935676990.dkr.ecr.eu-west-1.amazonaws.com/github/akuity/kargo
 
 helmCharts:
 - name: kargo
