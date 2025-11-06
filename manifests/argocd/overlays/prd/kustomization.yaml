@@ -18,8 +18,8 @@ images:
   - name: public.ecr.aws/docker/library/haproxy
     newName: 833935676990.dkr.ecr.eu-west-1.amazonaws.com/docker/library/haproxy
 
-  # - name: ghcr.io/dexidp/dex
-  #   newName: 833935676990.dkr.ecr.eu-west-1.amazonaws.com/github/dexidp/dex
+  - name: ghcr.io/dexidp/dex
+    newName: 833935676990.dkr.ecr.eu-west-1.amazonaws.com/github/dexidp/dex
 
 patches:
  - path: patches.yaml
